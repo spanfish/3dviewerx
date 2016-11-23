@@ -19,11 +19,12 @@
     TransformWindowController *_transformController;
     Model *_model;
     GLRenderer *_renderer;
+
 }
 @property(nonatomic, assign) BOOL modelReady;
 @property(nonatomic, weak) IBOutlet NSProgressIndicator *indicator;
 @property(nonatomic, weak) IBOutlet GLView *glView;
-
+@property(nonatomic, assign) BOOL useMaterial;
 @end
 
 @implementation ViewController
@@ -107,6 +108,13 @@
         [_renderer setBackgroundR:r];
         [_renderer setBackgroundG:g];
         [_renderer setBackgroundB:b];
+        
+        r = [[NSUserDefaults standardUserDefaults] floatForKey:@"AmbientColor.R"];
+        g = [[NSUserDefaults standardUserDefaults] floatForKey:@"AmbientColor.G"];
+        b = [[NSUserDefaults standardUserDefaults] floatForKey:@"AmbientColor.B"];
+        [_renderer setAmbientR:r];
+        [_renderer setAmbientG:g];
+        [_renderer setAmbientB:b];
     } else {
         _renderer = nil;
     }
@@ -130,6 +138,8 @@
     } else if([item.itemIdentifier isEqualToString:SNAPSHOT_MENU_IDENTIFIER]) {
         return _modelReady;
     } else if([item.itemIdentifier isEqualToString:BACKCOLOR_MENU_IDENTIFIER]) {
+        return _modelReady;
+    } else if([item.itemIdentifier isEqualToString:AMBIENT_COLOR_MENU_IDENTIFIER]) {
         return _modelReady;
     }
     return [item isEnabled];
@@ -163,10 +173,16 @@
 -(IBAction)chooseBackgroundColor:(id)sender {
     NSColorPanel *panel = [NSColorPanel sharedColorPanel];
     [panel setTarget:self];
-    [panel setAction:@selector(colorUpdate:)];
+    [panel setAction:@selector(backColorUpdate:)];
     [panel orderFront:self];
 }
 
+-(IBAction)chooseAmbientColor:(id)sender {
+    NSColorPanel *panel = [NSColorPanel sharedColorPanel];
+    [panel setTarget:self];
+    [panel setAction:@selector(ambientColorUpdate:)];
+    [panel orderFront:self];
+}
 #pragma mark -
 -(void) renderAsImage {
     NSString *message = @"Snapshot generated";
@@ -200,7 +216,7 @@
     [_indicator stopAnimation:self];
 }
 
--(void)colorUpdate:(NSColorPanel*)colorPanel{
+-(void)backColorUpdate:(NSColorPanel*)colorPanel{
     NSColor* theColor = colorPanel.color;
     [[NSUserDefaults standardUserDefaults] setFloat:theColor.redComponent forKey:@"BackgroundColor.R"];
     [[NSUserDefaults standardUserDefaults] setFloat:theColor.greenComponent forKey:@"BackgroundColor.G"];
@@ -209,5 +225,16 @@
     [_renderer setBackgroundR:theColor.redComponent];
     [_renderer setBackgroundG:theColor.greenComponent];
     [_renderer setBackgroundB:theColor.blueComponent];
+}
+
+-(void)ambientColorUpdate:(NSColorPanel*)colorPanel{
+    NSColor* theColor = colorPanel.color;
+    [[NSUserDefaults standardUserDefaults] setFloat:theColor.redComponent forKey:@"AmbientColor.R"];
+    [[NSUserDefaults standardUserDefaults] setFloat:theColor.greenComponent forKey:@"AmbientColor.G"];
+    [[NSUserDefaults standardUserDefaults] setFloat:theColor.blueComponent forKey:@"AmbientColor.B"];
+    
+    [_renderer setAmbientR:theColor.redComponent];
+    [_renderer setAmbientG:theColor.greenComponent];
+    [_renderer setAmbientB:theColor.blueComponent];
 }
 @end

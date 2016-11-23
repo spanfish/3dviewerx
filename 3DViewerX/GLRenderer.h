@@ -31,9 +31,11 @@
 @property(nonatomic, assign) float backgroundG;
 @property(nonatomic, assign) float backgroundB;
 
-@property(nonatomic, assign) int ambientR;
-@property(nonatomic, assign) int ambientG;
-@property(nonatomic, assign) int ambientB;
+@property(nonatomic, assign) int useMaterial;
+
+@property(nonatomic, assign) float ambientR;
+@property(nonatomic, assign) float ambientG;
+@property(nonatomic, assign) float ambientB;
 
 @property(nonatomic, assign) float zoom;
 @property(nonatomic, assign) float rotationx;

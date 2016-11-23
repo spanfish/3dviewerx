@@ -204,6 +204,11 @@
                                         <action selector="chooseBackgroundColor:" target="Oky-zY-oP4" id="cUs-hG-0Uh"/>
                                     </connections>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="B7DAF7D6-3229-4C06-AC70-AA04AE089D66" explicitItemIdentifier="AMBIENT_COLOR_MENU" label="Ambient Color" paletteLabel="Ambient Color" tag="-1" image="ambient" id="htV-p6-IWw">
+                                    <connections>
+                                        <action selector="chooseAmbientColor:" target="Oky-zY-oP4" id="cKS-eS-r6h"/>
+                                    </connections>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="dtR-eE-1n4"/>
@@ -213,6 +218,7 @@
                                 <toolbarItem reference="7Tb-3M-1g2"/>
                                 <toolbarItem reference="mRb-1k-OiY"/>
                                 <toolbarItem reference="Hbw-WG-VoR"/>
+                                <toolbarItem reference="htV-p6-IWw"/>
                             </defaultToolbarItems>
                         </toolbar>
                     </window>
@@ -269,6 +275,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ambient" width="410" height="410"/>
         <image name="background" width="410" height="410"/>
         <image name="camera" width="404" height="404"/>
         <image name="folder" width="47" height="47"/>

@@ -86,6 +86,7 @@ enum {
     GLint _eyeDirectionIdx;
     GLint _shininessIdx;
     GLint _strengthIdx;
+    GLint _useMaterialIdx;
     
     GLint _materialAmbientIdx;
     GLint _materialDiffuseIdx;
@@ -259,6 +260,7 @@ enum {
     _eyeDirectionIdx = glGetUniformLocation(program, "eyeDirection");
     _shininessIdx = glGetUniformLocation(program, "shininess");
     _strengthIdx = glGetUniformLocation(program, "strength");
+    _useMaterialIdx = glGetUniformLocation(program, "useMaterial");
     
     _materialAmbientIdx = glGetUniformLocation(program, "material.ambient");
     _materialDiffuseIdx = glGetUniformLocation(program, "material.diffuse");
@@ -375,7 +377,7 @@ typedef struct materialProp {
 
     glUniform4f(_constantColorIdx, 0.7, 0.7, 0.7, 1);
     
-    glUniform3f(_ambientUniformIdx, 1.0, 1.0, 1.0);
+    glUniform3f(_ambientUniformIdx, _ambientR, _ambientG, _ambientB);
     
     float lightDirection[3]={0.0, 0.0, 1.0};
     glUniform3fv(_lightDirectionIdx, 1, lightDirection);
@@ -388,6 +390,8 @@ typedef struct materialProp {
     
     float lightColor[3]={1.0, 1.0, 1.0};
     glUniform3fv(_lightColorIdx, 1, lightColor);
+    
+    glUniform1i(_useMaterialIdx, _useMaterial);
     
     GLsizei numOfVertexDrawed = 0;
     for (ModelGroup *mg in _model.modelGroup) {
