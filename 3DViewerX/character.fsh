@@ -47,7 +47,7 @@ void main (void)
         scatteredLight = lightColor * ambientColor + lightColor * diffuse;
         reflectedLight = lightColor  * specular;
     }
-    
+
     vec3 rgb = min(varColor.rgb * scatteredLight + reflectedLight, vec3(1.0, 1.0, 1.0));
     fragColor = vec4(rgb, varColor.a);
 }

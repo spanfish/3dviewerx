@@ -94,6 +94,9 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     _model = model;
     
     if(!model) {
+        if(displayLink){
+            CVDisplayLinkStop(displayLink);
+        }
         return;
     }
     _renderer = [[GLRenderer alloc] initWithModel:model];

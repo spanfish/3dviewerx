@@ -18,7 +18,7 @@ out vec3 varNormal;
 void main (void) 
 {
 	gl_Position	= projectionMatrix * modelViewMatrix * inPosition;
-
+    //gl_PointSize = 4;
     //varTexcoord = inTexcoord;
     varColor = constantColor;
     

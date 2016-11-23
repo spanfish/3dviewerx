@@ -393,6 +393,7 @@ typedef struct materialProp {
     
     glUniform1i(_useMaterialIdx, _useMaterial);
     
+    glPointSize(4);
     GLsizei numOfVertexDrawed = 0;
     for (ModelGroup *mg in _model.modelGroup) {
         for (MaterialGroup *materialGroup in mg.materialGroup) {
@@ -402,13 +403,14 @@ typedef struct materialProp {
                 if(!material) {
                     material = [Material defaultMaterial];
                 }
-            
+
                 glUniform3fv(_materialAmbientIdx, 1, material.ambient.v);
                 glUniform3fv(_materialDiffuseIdx, 1, material.diffuse.v);
                 glUniform3fv(_materialSpecularIdx, 1, material.spectral.v);
                 glUniform1f(_materialShininessIdx, material.shininess/100);                
                 
-                glDrawArrays(GL_TRIANGLES, numOfVertexDrawed, (GLsizei)materialGroup.numOfVertices);
+                //glDrawArrays(GL_TRIANGLES, numOfVertexDrawed, (GLsizei)materialGroup.numOfVertices);
+                glDrawArrays(GL_POINTS, numOfVertexDrawed * 3, (GLsizei)materialGroup.numOfVertices * 3);
                 numOfVertexDrawed += materialGroup.numOfVertices;
             }
         }
