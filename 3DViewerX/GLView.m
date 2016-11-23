@@ -98,9 +98,9 @@ static CVReturn MyDisplayLinkCallback(CVDisplayLinkRef displayLink,
     }
     _renderer = [[GLRenderer alloc] initWithModel:model];
     
-    [_renderer bind:@"backgroundR" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.backgroundR" options:nil];
-    [_renderer bind:@"backgroundG" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.backgroundG" options:nil];
-    [_renderer bind:@"backgroundB" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.backgroundB" options:nil];
+//    [_renderer bind:@"backgroundR" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.backgroundR" options:nil];
+//    [_renderer bind:@"backgroundG" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.backgroundG" options:nil];
+//    [_renderer bind:@"backgroundB" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.backgroundB" options:nil];
     
     [_renderer bind:@"ambientR" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.ambientR" options:nil];
     [_renderer bind:@"ambientG" toObject:[NSUserDefaultsController sharedUserDefaultsController] withKeyPath:@"values.ambientG" options:nil];

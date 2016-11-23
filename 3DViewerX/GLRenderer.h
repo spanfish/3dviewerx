@@ -27,9 +27,9 @@
 
 @property(nonatomic, strong) Model *model;
 
-@property(nonatomic, assign) int backgroundR;
-@property(nonatomic, assign) int backgroundG;
-@property(nonatomic, assign) int backgroundB;
+@property(nonatomic, assign) float backgroundR;
+@property(nonatomic, assign) float backgroundG;
+@property(nonatomic, assign) float backgroundB;
 
 @property(nonatomic, assign) int ambientR;
 @property(nonatomic, assign) int ambientG;

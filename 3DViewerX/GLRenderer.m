@@ -325,8 +325,7 @@ typedef struct materialProp {
 } materialProp;
 
 - (void) render {
-//    glClearColor((float)_backgroundR/255, (float)_backgroundG/255, (float)_backgroundB/255, 1.0f);
-    glClearColor(0, 0, 0, 1);
+    glClearColor(_backgroundR, _backgroundG, _backgroundB, 1.0f);
     if(!_model) {
         return;
     }

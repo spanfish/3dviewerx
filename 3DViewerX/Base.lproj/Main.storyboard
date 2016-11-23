@@ -199,7 +199,11 @@
                                 <toolbarItem implicitItemIdentifier="63CD0C59-A7AB-4066-A764-C34648FD1583" label="Light ON/OFF" paletteLabel="Light ON/OFF" tag="-1" id="oGc-JC-jkF"/>
                                 <toolbarItem implicitItemIdentifier="9F292724-94F0-4F3F-876D-ABDA09C6118F" label="Zoom In" paletteLabel="Zoom In" tag="-1" image="zoom-in" id="hSj-gb-NQE"/>
                                 <toolbarItem implicitItemIdentifier="93BE2216-CEF6-46C5-9544-CA1E3AE0E27F" label="Zoom Out" paletteLabel="Zoom Out" tag="-1" image="zoom-out" id="7Tb-3M-1g2"/>
-                                <toolbarItem implicitItemIdentifier="05C63886-2A27-4684-932C-24F6CFC94753" label="Background" paletteLabel="Background" tag="-1" image="background" id="Hbw-WG-VoR"/>
+                                <toolbarItem implicitItemIdentifier="05C63886-2A27-4684-932C-24F6CFC94753" explicitItemIdentifier="BACKCOLOR_MENU" label="Background" paletteLabel="Background" tag="-1" image="background" id="Hbw-WG-VoR">
+                                    <connections>
+                                        <action selector="chooseBackgroundColor:" target="Oky-zY-oP4" id="cUs-hG-0Uh"/>
+                                    </connections>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="dtR-eE-1n4"/>

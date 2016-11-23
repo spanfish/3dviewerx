@@ -26,8 +26,6 @@
 
 @end
 
-static void *ModelReadyContext = &ModelReadyContext;
-
 @implementation ViewController
 
 - (void)viewDidLoad {
@@ -44,7 +42,6 @@ static void *ModelReadyContext = &ModelReadyContext;
     // Load our character model //
     //////////////////////////////
     _model = [[Model alloc] initWithPath:path delegate:self];
-    //[_model addObserver:self forKeyPath:@"ready" options:NSKeyValueObservingOptionNew context:ModelReadyContext];
 }
 
 //-(IBAction)settingClicked:(id)sender
@@ -77,18 +74,6 @@ static void *ModelReadyContext = &ModelReadyContext;
 }
 
 #pragma mark -
--(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
-{
-    if(context == ModelReadyContext) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self glViewModelChanged:(Model *) object];
-        });
-    }
-    else
-    {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    }
-}
 
 - (void)setRepresentedObject:(id)representedObject
 {
@@ -110,21 +95,30 @@ static void *ModelReadyContext = &ModelReadyContext;
     _modelReady = modelReady;
     [[[NSApp mainWindow] toolbar] validateVisibleItems];
 }
+
 -(void) glViewModelChanged:(Model *) model {
     [self setModelReady:[model ready]];
     [self.glView setModel:_model];
     if(model) {
         _renderer = [self.glView renderer];
+        float r = [[NSUserDefaults standardUserDefaults] floatForKey:@"BackgroundColor.R"];
+        float g = [[NSUserDefaults standardUserDefaults] floatForKey:@"BackgroundColor.G"];
+        float b = [[NSUserDefaults standardUserDefaults] floatForKey:@"BackgroundColor.B"];
+        [_renderer setBackgroundR:r];
+        [_renderer setBackgroundG:g];
+        [_renderer setBackgroundB:b];
     } else {
         _renderer = nil;
     }
 }
 
-#pragma mark - Toolbar Event
+#pragma mark - Toolbar, Menu Validation
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
     if([menuItem.identifier isEqualToString:OPEN_MENU_IDENTIFIER]) {
         return YES;
     } else if([menuItem.identifier isEqualToString:SNAPSHOT_MENU_IDENTIFIER]) {
+        return _modelReady;
+    } else if([menuItem.identifier isEqualToString:BACKCOLOR_MENU_IDENTIFIER]) {
         return _modelReady;
     }
     return [menuItem isEnabled];
@@ -135,10 +129,13 @@ static void *ModelReadyContext = &ModelReadyContext;
         return YES;
     } else if([item.itemIdentifier isEqualToString:SNAPSHOT_MENU_IDENTIFIER]) {
         return _modelReady;
+    } else if([item.itemIdentifier isEqualToString:BACKCOLOR_MENU_IDENTIFIER]) {
+        return _modelReady;
     }
     return [item isEnabled];
 }
 
+#pragma mark - Toolbar Event
 -(IBAction)openDocument:(id)sender {
     NSOpenPanel* panel = [NSOpenPanel openPanel];
     panel.canChooseFiles = YES;
@@ -163,6 +160,14 @@ static void *ModelReadyContext = &ModelReadyContext;
     [self performSelectorOnMainThread:@selector(renderAsImage) withObject:nil waitUntilDone:NO];
 }
 
+-(IBAction)chooseBackgroundColor:(id)sender {
+    NSColorPanel *panel = [NSColorPanel sharedColorPanel];
+    [panel setTarget:self];
+    [panel setAction:@selector(colorUpdate:)];
+    [panel orderFront:self];
+}
+
+#pragma mark -
 -(void) renderAsImage {
     NSString *message = @"Snapshot generated";
     NSString *info = @"The snapshot was saved to your desktop";
@@ -193,5 +198,16 @@ static void *ModelReadyContext = &ModelReadyContext;
         
     }];
     [_indicator stopAnimation:self];
+}
+
+-(void)colorUpdate:(NSColorPanel*)colorPanel{
+    NSColor* theColor = colorPanel.color;
+    [[NSUserDefaults standardUserDefaults] setFloat:theColor.redComponent forKey:@"BackgroundColor.R"];
+    [[NSUserDefaults standardUserDefaults] setFloat:theColor.greenComponent forKey:@"BackgroundColor.G"];
+    [[NSUserDefaults standardUserDefaults] setFloat:theColor.blueComponent forKey:@"BackgroundColor.B"];
+    
+    [_renderer setBackgroundR:theColor.redComponent];
+    [_renderer setBackgroundG:theColor.greenComponent];
+    [_renderer setBackgroundB:theColor.blueComponent];
 }
 @end
