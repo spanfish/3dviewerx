@@ -462,4 +462,32 @@ typedef struct materialProp {
     //mdlDestroyModel(_characterModel);
 }
 
+-(NSImage *) image {
+    NSImage *image = nil;
+    NSBitmapImageRep *representation = nil;
+    if([_model ready]) {
+        glReadBuffer(GL_BACK);
+        NSMutableData *pixelsData = [[NSMutableData alloc] initWithLength:_viewWidth * _viewHeight * 4];
+        glReadPixels(0, 0, _viewWidth, _viewHeight, GL_RGBA, GL_UNSIGNED_BYTE, [pixelsData mutableBytes]);
+        unsigned char* planes[1];
+        planes[0] = [pixelsData mutableBytes];
+        representation= [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:planes
+                                                pixelsWide:_viewWidth
+                                                pixelsHigh:_viewHeight
+                                             bitsPerSample:8
+                                           samplesPerPixel:4
+                                                  hasAlpha:YES
+                                                  isPlanar:NO
+                                            colorSpaceName:NSDeviceRGBColorSpace
+                                               bytesPerRow:_viewWidth * 4
+                                              bitsPerPixel:32];
+        if(representation) {
+            image = [[NSImage alloc] initWithSize:CGSizeMake(_viewWidth, _viewHeight)];
+            [image lockFocusFlipped:YES];
+            [representation drawInRect:NSMakeRect(0, 0, _viewWidth, _viewHeight)];
+            [image unlockFocus];
+        }
+    }
+    return image;
+}
 @end

@@ -120,7 +120,7 @@ static void *ModelReadyContext = &ModelReadyContext;
     }
 }
 
-#pragma mark - Toolbar
+#pragma mark - Toolbar Event
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
     if([menuItem.identifier isEqualToString:OPEN_MENU_IDENTIFIER]) {
         return YES;
@@ -159,5 +159,39 @@ static void *ModelReadyContext = &ModelReadyContext;
 }
 
 -(IBAction)saveSnapshot:(id)sender {
+    [_indicator startAnimation:self];
+    [self performSelectorOnMainThread:@selector(renderAsImage) withObject:nil waitUntilDone:NO];
+}
+
+-(void) renderAsImage {
+    NSString *message = @"Snapshot generated";
+    NSString *info = @"The snapshot was saved to your desktop";
+    NSImage *image = [_renderer image];
+    NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithCGImage:[image CGImageForProposedRect:NULL context:NULL hints:NULL]];
+    NSData *data = [rep representationUsingType:NSJPEGFileType properties:@{}];
+    if(data) {
+        NSArray * paths = NSSearchPathForDirectoriesInDomains (NSDesktopDirectory, NSUserDomainMask, YES);
+        NSString * desktopPath = [paths objectAtIndex:0];
+        NSString *fileName = [[_model.path lastPathComponent] stringByDeletingPathExtension];
+        NSString *filePath = [[desktopPath stringByAppendingPathComponent:fileName] stringByAppendingPathExtension:@"jpg"];
+        if([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+            [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
+        }
+        [data writeToFile:filePath atomically:YES];
+    }
+    if(!image || !data) {
+        message = @"Failure";
+        info = @"Unable to generate a snapshot";
+    }
+    
+    NSAlert *alertSheet = [[NSAlert alloc] init];
+    [alertSheet addButtonWithTitle:@"OK"];
+    [alertSheet setMessageText:message];
+    [alertSheet setInformativeText:info];
+    [alertSheet setAlertStyle:NSInformationalAlertStyle];
+    [alertSheet beginSheetModalForWindow:[NSApp mainWindow] completionHandler:^(NSModalResponse returnCode) {
+        
+    }];
+    [_indicator stopAnimation:self];
 }
 @end

@@ -39,4 +39,6 @@
 @property(nonatomic, assign) float rotationx;
 @property(nonatomic, assign) float rotationy;
 @property(nonatomic, assign) float rotationz;
+
+-(NSImage *) image;
 @end
