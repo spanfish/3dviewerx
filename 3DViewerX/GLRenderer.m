@@ -360,8 +360,8 @@ typedef struct materialProp {
 #endif
     modelviewMatrix = GLKMatrix4Translate(modelviewMatrix, 0.0f, 0.0f, -MAX(ABS(_model.maxZ), ABS(_model.minZ)) - near -5);
     
-    //modelviewMatrix = GLKMatrix4RotateX(modelviewMatrix, GLKMathDegreesToRadians(30));
-    //modelviewMatrix = GLKMatrix4RotateY(modelviewMatrix, GLKMathDegreesToRadians(45));
+   modelviewMatrix = GLKMatrix4RotateX(modelviewMatrix, GLKMathDegreesToRadians(30));
+    modelviewMatrix = GLKMatrix4RotateY(modelviewMatrix, GLKMathDegreesToRadians(45));
     //modelviewMatrix = GLKMatrix4RotateZ(modelviewMatrix, GLKMathDegreesToRadians(_rotationz));
     
     modelviewMatrix = GLKMatrix4Scale(modelviewMatrix, _zoom, _zoom, _zoom);
@@ -379,20 +379,17 @@ typedef struct materialProp {
 
     glUniform4f(_constantColorIdx, 0.7, 0.7, 0.7, 1);
     
-    //glUniform3f(_ambientUniformIdx, _ambientR, _ambientG, _ambientB);
-    glUniform3f(_ambientUniformIdx, 0.2, 0.2, 0.2);
+    glUniform3f(_ambientUniformIdx, _ambientR, _ambientG, _ambientB);
     
     float lightDirection[3]={0.0, 0.0, 1.0};
     glUniform3fv(_lightDirectionIdx, 1, lightDirection);
+    glUniform3f(_lightColorIdx, _lightR, _lightG, _lightB);
     
     float eyeDirection[3]={0.0, 0.0, 1.0};
     glUniform3fv(_eyeDirectionIdx, 1, eyeDirection);
     
-    glUniform1f(_shininessIdx, 70);
-    glUniform1f(_strengthIdx, 70);
-    
-    float lightColor[3]={1.0, 1.0, 1.0};
-    glUniform3fv(_lightColorIdx, 1, lightColor);
+    glUniform1f(_shininessIdx, 60);
+    glUniform1f(_strengthIdx, 60);
     
     glUniform1i(_useMaterialIdx, _showMaterial);
     

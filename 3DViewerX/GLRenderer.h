@@ -39,6 +39,10 @@ typedef enum : NSUInteger {
 @property(nonatomic, assign) float ambientG;
 @property(nonatomic, assign) float ambientB;
 
+@property(nonatomic, assign) float lightR;
+@property(nonatomic, assign) float lightG;
+@property(nonatomic, assign) float lightB;
+
 @property(nonatomic, assign) float zoom;
 @property(nonatomic, assign) float rotationx;
 @property(nonatomic, assign) float rotationy;

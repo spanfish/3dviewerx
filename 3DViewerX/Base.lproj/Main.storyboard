@@ -218,6 +218,11 @@
                                         <action selector="renderAsLines:" target="Oky-zY-oP4" id="DZd-5f-N97"/>
                                     </connections>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="00606BD4-66A7-4D56-B716-78A9C89887D5" label="Light Color" paletteLabel="Light Color" tag="-1" image="lightColor" id="jgZ-BJ-8X7">
+                                    <connections>
+                                        <action selector="chooseLightColor:" target="Oky-zY-oP4" id="L0K-n8-UYq"/>
+                                    </connections>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="dtR-eE-1n4"/>
@@ -228,6 +233,7 @@
                                 <toolbarItem reference="mRb-1k-OiY"/>
                                 <toolbarItem reference="Hbw-WG-VoR"/>
                                 <toolbarItem reference="htV-p6-IWw"/>
+                                <toolbarItem reference="jgZ-BJ-8X7"/>
                                 <toolbarItem reference="mRb-1k-OiY"/>
                                 <toolbarItem reference="MgS-qL-f0l"/>
                                 <toolbarItem reference="8LO-2Y-e40"/>
@@ -293,6 +299,7 @@
         <image name="camera" width="404" height="404"/>
         <image name="dots" width="410" height="410"/>
         <image name="folder" width="47" height="47"/>
+        <image name="lightColor" width="43" height="43"/>
         <image name="lines" width="410" height="410"/>
         <image name="material" width="410" height="410"/>
         <image name="zoom-in" width="410" height="410"/>

@@ -184,6 +184,13 @@
     [panel orderFront:self];
 }
 
+-(IBAction)chooseLightColor:(id)sender {
+    NSColorPanel *panel = [NSColorPanel sharedColorPanel];
+    [panel setTarget:self];
+    [panel setAction:@selector(lightColorUpdate:)];
+    [panel orderFront:self];
+}
+
 -(IBAction)renderAsDots:(id)sender {
     [_renderer renderAs:RENDER_AS_DOTS];
 }
@@ -248,6 +255,18 @@
     [_renderer setAmbientR:theColor.redComponent];
     [_renderer setAmbientG:theColor.greenComponent];
     [_renderer setAmbientB:theColor.blueComponent];
+    NSLog(@"%f,%f,%f", theColor.redComponent, theColor.greenComponent, theColor.blueComponent);
+}
+
+-(void)lightColorUpdate:(NSColorPanel*)colorPanel{
+    NSColor* theColor = colorPanel.color;
+    [[NSUserDefaults standardUserDefaults] setFloat:theColor.redComponent forKey:@"LightColor.R"];
+    [[NSUserDefaults standardUserDefaults] setFloat:theColor.greenComponent forKey:@"LightColor.G"];
+    [[NSUserDefaults standardUserDefaults] setFloat:theColor.blueComponent forKey:@"LightColor.B"];
+    
+    [_renderer setLightR:theColor.redComponent];
+    [_renderer setLightG:theColor.greenComponent];
+    [_renderer setLightB:theColor.blueComponent];
     NSLog(@"%f,%f,%f", theColor.redComponent, theColor.greenComponent, theColor.blueComponent);
 }
 @end

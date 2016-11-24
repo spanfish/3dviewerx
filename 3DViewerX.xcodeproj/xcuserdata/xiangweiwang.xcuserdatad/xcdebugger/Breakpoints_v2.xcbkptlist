@@ -314,11 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "3DViewerX/GLRenderer.m"
-            timestampString = "501690752.938137"
+            timestampString = "501692407.81203"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "512"
-            endingLineNumber = "512"
+            startingLineNumber = "509"
+            endingLineNumber = "509"
             landmarkName = "-renderAs:"
             landmarkType = "7">
          </BreakpointContent>
