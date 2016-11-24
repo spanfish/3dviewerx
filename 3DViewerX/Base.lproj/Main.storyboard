@@ -193,8 +193,12 @@
                                         <action selector="saveSnapshot:" target="Oky-zY-oP4" id="H6U-Ux-0p4"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="477E1B4D-CB2B-4AE5-8B65-F23D9C55723D" label="Points" paletteLabel="Points" tag="-1" id="MgS-qL-f0l"/>
-                                <toolbarItem implicitItemIdentifier="35A08C43-5DFF-4065-89A2-239C71BC7FAF" label="Triangles" paletteLabel="Triangles" tag="-1" id="Yoo-vQ-W92"/>
+                                <toolbarItem implicitItemIdentifier="477E1B4D-CB2B-4AE5-8B65-F23D9C55723D" explicitItemIdentifier="POINTS_MENU" label="Points" paletteLabel="Points" tag="-1" image="dots" id="MgS-qL-f0l">
+                                    <connections>
+                                        <action selector="renderAsDots:" target="Oky-zY-oP4" id="Rya-kD-L2d"/>
+                                    </connections>
+                                </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="35A08C43-5DFF-4065-89A2-239C71BC7FAF" label="Material" paletteLabel="Material" tag="-1" image="material" id="Yoo-vQ-W92"/>
                                 <toolbarItem implicitItemIdentifier="1ECB7594-3B21-44A6-9894-AFC0DB9A0CA5" label="Texture" paletteLabel="Texture" tag="-1" id="ALe-2D-0Nb"/>
                                 <toolbarItem implicitItemIdentifier="63CD0C59-A7AB-4066-A764-C34648FD1583" label="Light ON/OFF" paletteLabel="Light ON/OFF" tag="-1" id="oGc-JC-jkF"/>
                                 <toolbarItem implicitItemIdentifier="9F292724-94F0-4F3F-876D-ABDA09C6118F" label="Zoom In" paletteLabel="Zoom In" tag="-1" image="zoom-in" id="hSj-gb-NQE"/>
@@ -209,6 +213,11 @@
                                         <action selector="chooseAmbientColor:" target="Oky-zY-oP4" id="cKS-eS-r6h"/>
                                     </connections>
                                 </toolbarItem>
+                                <toolbarItem implicitItemIdentifier="F7A4053D-675B-4711-8A43-B4A3565C9FD2" label="Lines" paletteLabel="Lines" tag="-1" image="lines" id="8LO-2Y-e40">
+                                    <connections>
+                                        <action selector="renderAsLines:" target="Oky-zY-oP4" id="DZd-5f-N97"/>
+                                    </connections>
+                                </toolbarItem>
                             </allowedToolbarItems>
                             <defaultToolbarItems>
                                 <toolbarItem reference="dtR-eE-1n4"/>
@@ -219,6 +228,10 @@
                                 <toolbarItem reference="mRb-1k-OiY"/>
                                 <toolbarItem reference="Hbw-WG-VoR"/>
                                 <toolbarItem reference="htV-p6-IWw"/>
+                                <toolbarItem reference="mRb-1k-OiY"/>
+                                <toolbarItem reference="MgS-qL-f0l"/>
+                                <toolbarItem reference="8LO-2Y-e40"/>
+                                <toolbarItem reference="Yoo-vQ-W92"/>
                             </defaultToolbarItems>
                         </toolbar>
                     </window>
@@ -278,7 +291,10 @@
         <image name="ambient" width="410" height="410"/>
         <image name="background" width="410" height="410"/>
         <image name="camera" width="404" height="404"/>
+        <image name="dots" width="410" height="410"/>
         <image name="folder" width="47" height="47"/>
+        <image name="lines" width="410" height="410"/>
+        <image name="material" width="410" height="410"/>
         <image name="zoom-in" width="410" height="410"/>
         <image name="zoom-out" width="410" height="410"/>
     </resources>

@@ -6,7 +6,7 @@ uniform vec3 lightColor;        //灯颜色
 uniform vec3 eyeDirection;      //眼睛方向
 uniform float shininess;
 uniform float strength;
-uniform int useMaterial;
+uniform bool useMaterial;
 
 struct materialProp {
 //    vec3 emission;
@@ -31,7 +31,7 @@ void main (void)
     if(diffuse == 0) {
         specular = 0;
     } else {
-        if(useMaterial == 1) {
+        if(useMaterial) {
             specular = pow(specular, shininess * material.shininess);
         } else {
             specular = pow(specular, shininess);
@@ -40,7 +40,7 @@ void main (void)
     
     vec3 scatteredLight;
     vec3 reflectedLight;
-    if(useMaterial == 1) {
+    if(useMaterial) {
         scatteredLight = lightColor * (ambientColor * material.ambient) + lightColor * (diffuse * material.diffuse);
         reflectedLight = lightColor  * (specular  * material.specular);
     } else {

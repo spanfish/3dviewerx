@@ -24,7 +24,7 @@
 @property(nonatomic, assign) BOOL modelReady;
 @property(nonatomic, weak) IBOutlet NSProgressIndicator *indicator;
 @property(nonatomic, weak) IBOutlet GLView *glView;
-@property(nonatomic, assign) BOOL useMaterial;
+
 @end
 
 @implementation ViewController
@@ -183,6 +183,18 @@
     [panel setAction:@selector(ambientColorUpdate:)];
     [panel orderFront:self];
 }
+
+-(IBAction)renderAsDots:(id)sender {
+    [_renderer renderAs:RENDER_AS_DOTS];
+}
+
+-(IBAction)renderAsLines:(id)sender {
+    [_renderer renderAs:RENDER_AS_TRANGLES];
+}
+
+-(IBAction)renderMaterial:(id)sender {
+    [_renderer setShowMaterial:!_renderer.showMaterial];
+}
 #pragma mark -
 -(void) renderAsImage {
     NSString *message = @"Snapshot generated";
@@ -236,5 +248,6 @@
     [_renderer setAmbientR:theColor.redComponent];
     [_renderer setAmbientG:theColor.greenComponent];
     [_renderer setAmbientB:theColor.blueComponent];
+    NSLog(@"%f,%f,%f", theColor.redComponent, theColor.greenComponent, theColor.blueComponent);
 }
 @end

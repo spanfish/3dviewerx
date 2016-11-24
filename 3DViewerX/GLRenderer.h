@@ -13,11 +13,14 @@
 
 #import "Model.h"
 
+typedef enum : NSUInteger {
+    RENDER_AS_TRANGLES,
+    RENDER_AS_DOTS,
+} RenderType;
+
 @interface GLRenderer : NSObject
 {
-#if DEBUG
-
-#endif
+    RenderType _renderType;
 }
 
 - (instancetype) initWithModel:(Model *)model;
@@ -30,8 +33,7 @@
 @property(nonatomic, assign) float backgroundR;
 @property(nonatomic, assign) float backgroundG;
 @property(nonatomic, assign) float backgroundB;
-
-@property(nonatomic, assign) int useMaterial;
+@property(nonatomic, assign) BOOL showMaterial;
 
 @property(nonatomic, assign) float ambientR;
 @property(nonatomic, assign) float ambientG;
@@ -43,4 +45,5 @@
 @property(nonatomic, assign) float rotationz;
 
 -(NSImage *) image;
+-(void) renderAs:(RenderType) renderType;
 @end

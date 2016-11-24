@@ -109,6 +109,8 @@ enum {
     if(self = [super init])
     {
         _zoom = 1;
+        _showMaterial = YES;
+        _renderType = RENDER_AS_TRANGLES;
         _rotationx = _rotationy = _rotationz = 0;
         
         _defaultFBOName = 0;
@@ -377,7 +379,8 @@ typedef struct materialProp {
 
     glUniform4f(_constantColorIdx, 0.7, 0.7, 0.7, 1);
     
-    glUniform3f(_ambientUniformIdx, _ambientR, _ambientG, _ambientB);
+    //glUniform3f(_ambientUniformIdx, _ambientR, _ambientG, _ambientB);
+    glUniform3f(_ambientUniformIdx, 0.2, 0.2, 0.2);
     
     float lightDirection[3]={0.0, 0.0, 1.0};
     glUniform3fv(_lightDirectionIdx, 1, lightDirection);
@@ -386,14 +389,18 @@ typedef struct materialProp {
     glUniform3fv(_eyeDirectionIdx, 1, eyeDirection);
     
     glUniform1f(_shininessIdx, 70);
-    glUniform1f(_strengthIdx, 0.8);
+    glUniform1f(_strengthIdx, 70);
     
     float lightColor[3]={1.0, 1.0, 1.0};
     glUniform3fv(_lightColorIdx, 1, lightColor);
     
-    glUniform1i(_useMaterialIdx, _useMaterial);
+    glUniform1i(_useMaterialIdx, _showMaterial);
     
-    glPointSize(4);
+    if(_renderType == RENDER_AS_DOTS) {
+        glPointSize(4);
+    } else {
+        glPointSize(1);
+    }
     GLsizei numOfVertexDrawed = 0;
     for (ModelGroup *mg in _model.modelGroup) {
         for (MaterialGroup *materialGroup in mg.materialGroup) {
@@ -407,10 +414,14 @@ typedef struct materialProp {
                 glUniform3fv(_materialAmbientIdx, 1, material.ambient.v);
                 glUniform3fv(_materialDiffuseIdx, 1, material.diffuse.v);
                 glUniform3fv(_materialSpecularIdx, 1, material.spectral.v);
-                glUniform1f(_materialShininessIdx, material.shininess/100);                
+                glUniform1f(_materialShininessIdx, material.shininess);
                 
-                //glDrawArrays(GL_TRIANGLES, numOfVertexDrawed, (GLsizei)materialGroup.numOfVertices);
-                glDrawArrays(GL_POINTS, numOfVertexDrawed * 3, (GLsizei)materialGroup.numOfVertices * 3);
+                if(_renderType == RENDER_AS_DOTS) {
+                    glDrawArrays(GL_POINTS, numOfVertexDrawed, (GLsizei)materialGroup.numOfVertices);
+                } else {
+                    glDrawArrays(GL_TRIANGLES, numOfVertexDrawed * 3, (GLsizei)materialGroup.numOfVertices * 3);
+                }
+                
                 numOfVertexDrawed += materialGroup.numOfVertices;
             }
         }
@@ -494,5 +505,9 @@ typedef struct materialProp {
         }
     }
     return image;
+}
+
+-(void) renderAs:(RenderType) renderType {
+    _renderType = renderType;
 }
 @end
