@@ -416,7 +416,7 @@ typedef struct materialProp {
                 if(_renderType == RENDER_AS_DOTS) {
                     glDrawArrays(GL_POINTS, numOfVertexDrawed, (GLsizei)materialGroup.numOfVertices);
                 } else {
-                    glDrawArrays(GL_TRIANGLES, numOfVertexDrawed * 3, (GLsizei)materialGroup.numOfVertices * 3);
+                    glDrawArrays(GL_TRIANGLES, numOfVertexDrawed, (GLsizei)materialGroup.numOfVertices);
                 }
                 
                 numOfVertexDrawed += materialGroup.numOfVertices;
